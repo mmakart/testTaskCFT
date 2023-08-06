@@ -51,12 +51,13 @@ public class App {
             InputLinesMerger merger = new InputLinesMerger(readers, isLineValid, comparator);
 
             String previousStr = null;
-            long iteration = 0;
+            boolean isFirstIteration = true;
             for (String str : merger) {
-                if (iteration++ == 0 || Objects.compare(str, previousStr, comparator) >= 0) {
+                if (isFirstIteration || Objects.compare(str, previousStr, comparator) >= 0) {
                     writer.println(str);
+                    isFirstIteration = false;
+                    previousStr = str;
                 }
-                previousStr = str;
             }
 
         } catch (NoInputFilesException e) {
