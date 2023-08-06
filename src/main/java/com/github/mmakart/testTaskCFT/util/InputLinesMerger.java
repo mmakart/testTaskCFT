@@ -16,8 +16,8 @@ import java.util.Comparator;
 @AllArgsConstructor
 public class InputLinesMerger implements Iterable<String> {
 
-    private final List<BufferedReader> readers;
-    private final Predicate<String> isLineValid;
+    private final List<? extends BufferedReader> readers;
+    private final Predicate<? super String> isLineValid;
     private final Comparator<? super String> comparator;
 
     @Override
