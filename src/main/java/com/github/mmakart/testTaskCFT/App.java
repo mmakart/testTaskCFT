@@ -1,12 +1,9 @@
 package com.github.mmakart.testTaskCFT;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -16,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.github.mmakart.testTaskCFT.enums.DataType;
 import com.github.mmakart.testTaskCFT.enums.SortMode;
+import com.github.mmakart.testTaskCFT.exceptions.NoInputFilesException;
 import com.github.mmakart.testTaskCFT.exceptions.WrongArgumentsException;
 import com.github.mmakart.testTaskCFT.util.AppSettings;
 import com.github.mmakart.testTaskCFT.util.AppSettingsParser;
@@ -61,10 +59,12 @@ public class App {
                 previousStr = str;
             }
 
-        } catch (IOException e) {
-            System.err.printf("Error: cannot open input file %s.%n"
-                    + "It doesn't exist or this program doesn't have rights to read it.%n", e.getMessage());
+        } catch (NoInputFilesException e) {
+            System.err.println("Error: none of input files can be opened. Quitting.");
             System.exit(2);
+        } catch (IOException e) {
+            System.err.printf("%s: Input/output error occurred. Quitting.%n", e.getMessage());
+            System.exit(3);
         }
     }
 

@@ -8,10 +8,23 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.mmakart.testTaskCFT.exceptions.NoInputFilesException;
+
 public class ReaderList extends ArrayList<BufferedReader> implements AutoCloseable {
-    public ReaderList(List<String> inputFilenames) throws IOException {
+    public ReaderList(List<String> inputFilenames) throws NoInputFilesException {
+        int counter = 0;
         for (String filename : inputFilenames) {
-            add(Files.newBufferedReader(Paths.get(filename), StandardCharsets.UTF_8));
+            try {
+                BufferedReader reader = Files.newBufferedReader(Paths.get(filename), StandardCharsets.UTF_8);
+                add(reader);
+                counter++;
+            } catch (IOException e) {
+                System.err.println(
+                        "Warning: error occured while opening an input file " + e.getMessage() + ". Skipping.");
+            }
+        }
+        if (counter == 0) {
+            throw new NoInputFilesException();
         }
     }
 
@@ -21,7 +34,7 @@ public class ReaderList extends ArrayList<BufferedReader> implements AutoCloseab
             try {
                 reader.close();
             } catch (IOException e) {
-                System.err.println("Warning: error occured while closing an input file");
+                System.err.println("Warning: error occured while closing an input file " + e.getMessage());
             }
         }
     }
