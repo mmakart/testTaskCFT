@@ -25,3 +25,5 @@ java -jar target/testTaskCFT-1.0.jar -d -i out5.txt num_rand_1.txt num_rand_2.tx
 ```
 
 Открыв файлы out1.txt, out2.txt, ..., out5.txt, можно убедиться, что данные в них отсортированы корректно.
+
+![program output](img/Example_output_files.png)
