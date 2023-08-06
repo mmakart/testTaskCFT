@@ -46,18 +46,18 @@ public class InputLinesMerger implements Iterable<String> {
 
                 String minOrMax = lastLines.stream().min(comparator).get();
 
-                int minIndex = lastLines.indexOf(minOrMax);
+                int minOrMaxIndex = lastLines.indexOf(minOrMax);
                 String lastLine = null;
                 do {
                     try {
-                        lastLine = readers.get(minIndex).readLine();
+                        lastLine = readers.get(minOrMaxIndex).readLine();
                     } catch (IOException e) {
                         System.err.println("Warning: error occurred while reading an input file");
                     }
                 } while (lastLine != null && !isLineValid.test(lastLine));
 
-                lastLines.set(minIndex, lastLine);
-                listEOF.set(minIndex, lastLine == null);
+                lastLines.set(minOrMaxIndex, lastLine);
+                listEOF.set(minOrMaxIndex, lastLine == null);
 
                 return minOrMax;
             }
