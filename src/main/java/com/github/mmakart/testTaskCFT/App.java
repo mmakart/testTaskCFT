@@ -42,11 +42,11 @@ public class App {
         String outputFilename = settings.getOutputFilename();
         List<String> inputFilenames = settings.getInputFilenames();
 
-        Comparator<String> comparator = computeComparator();
-        Predicate<String> isLineValid = computePredicate();
-
         try (PrintWriter writer = new PrintWriter(outputFilename, StandardCharsets.UTF_8);
                 ReaderList readers = new ReaderList(inputFilenames)) {
+
+            Comparator<String> comparator = computeComparator();
+            Predicate<String> isLineValid = computePredicate();
 
             InputLinesMerger merger = new InputLinesMerger(readers, isLineValid, comparator);
 
