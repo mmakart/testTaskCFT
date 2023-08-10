@@ -4,14 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
-
 import lombok.AllArgsConstructor;
-
-import java.util.Comparator;
 
 @AllArgsConstructor
 public class InputLinesMerger implements Iterable<String> {
@@ -23,7 +21,6 @@ public class InputLinesMerger implements Iterable<String> {
     @Override
     public Iterator<String> iterator() {
         return new Iterator<String>() {
-
             private final List<Boolean> listEOF;
             private final List<String> lastLines;
 
@@ -69,15 +66,14 @@ public class InputLinesMerger implements Iterable<String> {
                     try {
                         line = readers.get(index).readLine();
                     } catch (IOException e) {
-                        System.err.println("Warning: error occurred while reading an input file");
+                        System.err.println(
+                                "Warning: error occurred while reading an input file");
                     }
                 } while (line != null && !isLineValid.test(line));
 
                 lastLines.set(index, line);
                 listEOF.set(index, line == null);
             }
-
         };
     }
-
 }
