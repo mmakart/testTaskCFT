@@ -1,20 +1,20 @@
 package com.github.mmakart.testTaskCFT.util;
 
+import com.github.mmakart.testTaskCFT.enums.DataType;
+import com.github.mmakart.testTaskCFT.enums.SortMode;
+import com.github.mmakart.testTaskCFT.exceptions.WrongArgumentsException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
-
-import com.github.mmakart.testTaskCFT.enums.DataType;
-import com.github.mmakart.testTaskCFT.enums.SortMode;
-import com.github.mmakart.testTaskCFT.exceptions.WrongArgumentsException;
 
 public class AppSettingsParser {
     private List<String> options = new ArrayList<>();
     private String outputFilename = "";
     private List<String> inputFilenames = new ArrayList<>();
 
-    public AppSettings parseSettings(String[] args) throws WrongArgumentsException {
+    public AppSettings parseSettings(String[] args)
+            throws WrongArgumentsException {
         final List<String> argsList = Arrays.asList(args);
 
         ListIterator<String> iterator = argsList.listIterator();
@@ -52,11 +52,11 @@ public class AppSettingsParser {
     }
 
     private boolean isOptionsCorrect() {
-        return options.size() == 1
-                && (options.contains("-s") ^ options.contains("-i"))
-                || options.size() == 2
-                        && (options.contains("-s") ^ options.contains("-i"))
-                        && (options.contains("-a") || options.contains("-d"));
+        return options.size() == 1 &&
+                (options.contains("-s") ^ options.contains("-i")) ||
+                options.size() == 2 &&
+                        (options.contains("-s") ^ options.contains("-i")) &&
+                        (options.contains("-a") || options.contains("-d"));
     }
 
     private boolean isOutputFilenamePresent() {
@@ -68,8 +68,7 @@ public class AppSettingsParser {
     }
 
     private boolean isArgsCorrect() {
-        return isOptionsCorrect()
-                && isOutputFilenamePresent()
-                && isInputFilenamesPresent();
+        return isOptionsCorrect() && isOutputFilenamePresent() &&
+                isInputFilenamesPresent();
     }
 }
