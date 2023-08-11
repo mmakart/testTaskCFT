@@ -1,16 +1,5 @@
 package com.github.mmakart.testTaskCFT;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
-import java.util.function.Predicate;
-
-import org.apache.commons.lang3.StringUtils;
-
 import com.github.mmakart.testTaskCFT.enums.DataType;
 import com.github.mmakart.testTaskCFT.enums.SortMode;
 import com.github.mmakart.testTaskCFT.exceptions.NoInputFilesException;
@@ -19,13 +8,22 @@ import com.github.mmakart.testTaskCFT.util.AppSettings;
 import com.github.mmakart.testTaskCFT.util.AppSettingsParser;
 import com.github.mmakart.testTaskCFT.util.InputLinesMerger;
 import com.github.mmakart.testTaskCFT.util.ReaderList;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Predicate;
+import org.apache.commons.lang3.StringUtils;
 
 public class App {
-    private static final String usage = "Usage: java -jar App.jar [-a|-d] {-s|-i} <output file> <input file(s)>...\n" +
-            "    -a    sort in ascending order (optional, default value)\n" +
-            "    -d    sort in descending order (optional)\n" +
-            "    -s    sort input files content as strings (required)\n" +
-            "    -i    sort input files content as integers (required)";
+    private static final String usage = "Usage: java -jar App.jar [-a|-d] {-s|-i} <output file> <input file(s)>...\n"
+            + "    -a    sort in ascending order (optional, default value)\n"
+            + "    -d    sort in descending order (optional)\n"
+            + "    -s    sort input files content as strings (required)\n"
+            + "    -i    sort input files content as integers (required)";
 
     private static AppSettings settings;
 
@@ -53,7 +51,8 @@ public class App {
             String previousStr = null;
             boolean isFirstIteration = true;
             for (String str : merger) {
-                if (isFirstIteration || Objects.compare(str, previousStr, comparator) >= 0) {
+                if (isFirstIteration ||
+                        Objects.compare(str, previousStr, comparator) >= 0) {
                     writer.println(str);
                     isFirstIteration = false;
                     previousStr = str;
@@ -64,7 +63,8 @@ public class App {
             System.err.println("Error: none of input files can be opened. Quitting.");
             System.exit(2);
         } catch (IOException e) {
-            System.err.printf("%s: Input/output error occurred. Quitting.%n", e.getMessage());
+            System.err.printf("%s: Input/output error occurred. Quitting.%n",
+                    e.getMessage());
             System.exit(3);
         }
     }
@@ -73,22 +73,26 @@ public class App {
         // nullsLast because Stream.min() throws NPE if the minimum element is null
         Comparator<String> ascStrComparator = Comparator.nullsLast(Comparator.naturalOrder());
         Comparator<String> descStrComparator = Comparator.nullsLast(Comparator.reverseOrder());
-        Comparator<String> strComparator = settings.getSortMode() == SortMode.ASC ? ascStrComparator
+        Comparator<String> strComparator = settings.getSortMode() == SortMode.ASC
+                ? ascStrComparator
                 : descStrComparator;
 
-        Comparator<String> ascNumComparator = Comparator
-                .nullsLast((a, b) -> new BigInteger(a).compareTo(new BigInteger(b)));
+        Comparator<String> ascNumComparator = Comparator.nullsLast(
+                (a, b) -> new BigInteger(a).compareTo(new BigInteger(b)));
         Comparator<String> descNumComparator = Comparator.nullsLast(ascNumComparator.reversed());
-        Comparator<String> numComparator = settings.getSortMode() == SortMode.ASC ? ascNumComparator
+        Comparator<String> numComparator = settings.getSortMode() == SortMode.ASC
+                ? ascNumComparator
                 : descNumComparator;
 
-        return settings.getDataType() == DataType.NUMBER ? numComparator : strComparator;
+        return settings.getDataType() == DataType.NUMBER ? numComparator
+                : strComparator;
     }
 
     private static Predicate<String> computePredicate() {
         Predicate<String> isLineWithoutSpaces = str -> str == null || !StringUtils.containsWhitespace(str);
         Predicate<String> isNumber = isLineWithoutSpaces.and(StringUtils::isNumeric);
 
-        return settings.getDataType() == DataType.NUMBER ? isNumber : isLineWithoutSpaces;
+        return settings.getDataType() == DataType.NUMBER ? isNumber
+                : isLineWithoutSpaces;
     }
 }
