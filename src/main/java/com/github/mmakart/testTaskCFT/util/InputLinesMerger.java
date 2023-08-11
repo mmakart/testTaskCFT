@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.function.Predicate;
 import lombok.AllArgsConstructor;
 
@@ -21,11 +22,9 @@ public class InputLinesMerger implements Iterable<String> {
     @Override
     public Iterator<String> iterator() {
         return new Iterator<String>() {
-            private final List<Boolean> listEOF;
             private final List<String> lastLines;
 
             {
-                listEOF = new ArrayList<>(Collections.nCopies(readers.size(), false));
                 lastLines = new ArrayList<>(Collections.nCopies(readers.size(), (String) null));
                 firstIteration();
             }
@@ -51,7 +50,7 @@ public class InputLinesMerger implements Iterable<String> {
             }
 
             private boolean isMoreLines() {
-                return listEOF.stream().anyMatch(isEOF -> !isEOF);
+                return lastLines.stream().anyMatch(Objects::nonNull);
             }
 
             private void firstIteration() {
@@ -72,7 +71,6 @@ public class InputLinesMerger implements Iterable<String> {
                 } while (line != null && !isLineValid.test(line));
 
                 lastLines.set(index, line);
-                listEOF.set(index, line == null);
             }
         };
     }
