@@ -8,13 +8,13 @@ import com.github.mmakart.testTaskCFT.util.AppSettings;
 import com.github.mmakart.testTaskCFT.util.AppSettingsParser;
 import com.github.mmakart.testTaskCFT.util.InputLinesMerger;
 import com.github.mmakart.testTaskCFT.util.ReaderList;
+import com.github.mmakart.testTaskCFT.util.WrongOrderFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Predicate;
 import org.apache.commons.lang3.StringUtils;
 
@@ -47,16 +47,10 @@ public class App {
             Predicate<String> isLineValid = computePredicate();
 
             InputLinesMerger merger = new InputLinesMerger(readers, isLineValid, comparator);
+            WrongOrderFilter filter = new WrongOrderFilter(merger, comparator);
 
-            String previousStr = null;
-            boolean isFirstIteration = true;
-            for (String str : merger) {
-                if (isFirstIteration ||
-                        Objects.compare(str, previousStr, comparator) >= 0) {
-                    writer.println(str);
-                    isFirstIteration = false;
-                    previousStr = str;
-                }
+            for (String str : filter) {
+                writer.println(str);
             }
 
         } catch (NoInputFilesException e) {
