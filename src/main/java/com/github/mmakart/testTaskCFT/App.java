@@ -83,8 +83,8 @@ public class App {
     }
 
     private static Predicate<String> computePredicate() {
-        Predicate<String> isLineWithoutSpaces = str -> str == null || !StringUtils.containsWhitespace(str);
-        Predicate<String> isNumber = isLineWithoutSpaces.and(StringUtils::isNumeric);
+        Predicate<String> isLineWithoutSpaces = str -> !StringUtils.containsWhitespace(str);
+        Predicate<String> isNumber = StringUtils::isNumeric;
 
         return settings.getDataType() == DataType.NUMBER ? isNumber
                 : isLineWithoutSpaces;
