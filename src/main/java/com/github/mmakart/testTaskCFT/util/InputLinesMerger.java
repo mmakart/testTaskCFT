@@ -2,8 +2,7 @@ package com.github.mmakart.testTaskCFT.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -25,7 +24,7 @@ public class InputLinesMerger implements Iterable<String> {
             private final List<String> lastLines;
 
             {
-                lastLines = new ArrayList<>(Collections.nCopies(readers.size(), (String) null));
+                lastLines = Arrays.asList(new String[readers.size()]);
                 firstIteration();
             }
 
