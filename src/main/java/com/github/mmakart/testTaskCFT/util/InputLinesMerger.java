@@ -13,7 +13,10 @@ import lombok.AllArgsConstructor;
 
 /**
  * Class reading lines from one or several sources (they are considered to have
- * sorted lines) and merging them in proper sort order.
+ * sorted lines) and merging them into one data stream.
+ *
+ * It filters out the lines which do not satisfy the condition in predicate
+ * given as the constructor argument. Note that the output can be not sorted.
  *
  * @author Mikhail Makartsev "m.p.makartsev@gmail.com"
  * @since 1.0
