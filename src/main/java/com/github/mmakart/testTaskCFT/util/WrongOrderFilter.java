@@ -30,9 +30,9 @@ public class WrongOrderFilter implements Iterable<String> {
                 while (iterator.hasNext()) {
                     hasNextLine = true;
                     currentLine = iterator.next();
+                    boolean isRightOrder = comparator.compare(currentLine, previousLine) >= 0;
 
-                    if (isFirstIteration ||
-                            comparator.compare(currentLine, previousLine) >= 0) {
+                    if (isFirstIteration || isRightOrder) {
                         isFirstIteration = false;
                         previousLine = currentLine;
 
