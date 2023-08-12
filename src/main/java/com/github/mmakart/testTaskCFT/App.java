@@ -18,6 +18,12 @@ import java.util.List;
 import java.util.function.Predicate;
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * The main class which runs the application.
+ * 
+ * @author Mikhail Makartsev "m.p.makartsev@gmail.com"
+ * @since 1.0
+ */
 public class App {
     private static final String usage = "Usage: java -jar App.jar [-a|-d] {-s|-i} <output file> <input file(s)>...\n"
             + "    -a    sort in ascending order (optional, default value)\n"

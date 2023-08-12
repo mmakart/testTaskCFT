@@ -5,6 +5,12 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Class filtering out wrong order lines from iterable source.
+ *
+ * @author Mikhail Makartsev "m.p.makartsev@gmail.com"
+ * @since 1.0
+ */
 @RequiredArgsConstructor
 public class WrongOrderFilter implements Iterable<String> {
     private final Iterable<String> iterable;

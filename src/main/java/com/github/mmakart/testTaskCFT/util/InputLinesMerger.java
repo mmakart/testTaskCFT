@@ -11,6 +11,13 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import lombok.AllArgsConstructor;
 
+/**
+ * Class reading lines from one or several sources (they are considered to have
+ * sorted lines) and merging them in proper sort order.
+ *
+ * @author Mikhail Makartsev "m.p.makartsev@gmail.com"
+ * @since 1.0
+ */
 @AllArgsConstructor
 public class InputLinesMerger implements Iterable<String> {
 
