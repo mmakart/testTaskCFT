@@ -64,6 +64,7 @@
 
 Запустите следующие команды в консоли:
 
+Unix:
 ```
 mvn clean package
 java -jar target/testTaskCFT-1.0.jar -a -s output/out1.txt input/str_asc_1.txt  input/str_asc_2.txt  input/str_asc_3.txt
@@ -71,6 +72,16 @@ java -jar target/testTaskCFT-1.0.jar -d -s output/out2.txt input/str_desc_1.txt 
 java -jar target/testTaskCFT-1.0.jar -a -i output/out3.txt input/num_asc_1.txt  input/num_asc_2.txt  input/num_asc_3.txt
 java -jar target/testTaskCFT-1.0.jar -a -i output/out4.txt input/num_rand_1.txt input/num_rand_2.txt input/num_rand_3.txt
 java -jar target/testTaskCFT-1.0.jar -d -i output/out5.txt input/num_rand_1.txt input/num_rand_2.txt input/num_rand_3.txt
+```
+
+Windows:
+```
+mvn clean package
+java -jar target\testTaskCFT-1.0.jar -a -s output\out1.txt input\str_asc_1.txt  input\str_asc_2.txt  input\str_asc_3.txt
+java -jar target\testTaskCFT-1.0.jar -d -s output\out2.txt input\str_desc_1.txt input\str_desc_2.txt input\str_desc_3.txt
+java -jar target\testTaskCFT-1.0.jar -a -i output\out3.txt input\num_asc_1.txt  input\num_asc_2.txt  input\num_asc_3.txt
+java -jar target\testTaskCFT-1.0.jar -a -i output\out4.txt input\num_rand_1.txt input\num_rand_2.txt input\num_rand_3.txt
+java -jar target\testTaskCFT-1.0.jar -d -i output\out5.txt input\num_rand_1.txt input\num_rand_2.txt input\num_rand_3.txt
 ```
 
 Открыв файлы out1.txt, out2.txt, ..., out5.txt в папке `output`, можно убедиться, что данные в них отсортированы корректно.
