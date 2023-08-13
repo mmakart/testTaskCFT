@@ -75,7 +75,8 @@ public class InputLinesMerger implements Iterable<String> {
                         line = readers.get(index).readLine();
                     } catch (IOException e) {
                         System.err.println(
-                                "Warning: error occurred while reading an input file");
+                                "Warning: error occurred while reading an input file" +
+                                        e.getMessage());
                     }
                 } while (line != null && !isLineValid.test(line));
 
