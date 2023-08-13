@@ -8,6 +8,7 @@ import com.github.mmakart.testTaskCFT.util.AppSettings;
 import com.github.mmakart.testTaskCFT.util.AppSettingsParser;
 import com.github.mmakart.testTaskCFT.util.InputLinesMerger;
 import com.github.mmakart.testTaskCFT.util.ReaderList;
+import com.github.mmakart.testTaskCFT.util.Strings;
 import com.github.mmakart.testTaskCFT.util.WrongOrderFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -90,7 +91,7 @@ public class App {
 
     private static Predicate<String> computePredicate() {
         Predicate<String> isLineWithoutSpaces = str -> !StringUtils.containsWhitespace(str);
-        Predicate<String> isNumber = StringUtils::isNumeric;
+        Predicate<String> isNumber = Strings::isNumber;
 
         return settings.getDataType() == DataType.NUMBER ? isNumber
                 : isLineWithoutSpaces;
